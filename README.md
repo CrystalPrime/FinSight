@@ -100,11 +100,11 @@ streamlit run app.py
 ## Example queries
 
 ```
-"AAPL hisse fiyatı nedir?"          → Market Agent  → live price + chart
-"Tesla son haberleri neler?"         → News Agent    → latest news
-"100$ alıp 150$'a satsam ROI ne?"   → Math Agent    → calculation
-"Yüklediğim raporda ne yazıyor?"    → RAG Agent     → document search
-"NVDA ile AMD'yi karşılaştır"       → Market Agent  → comparison + chart
+""What is the AAPL stock price?"        → Market Agent → live price + chart  "          → Market Agent  → live price + chart
+"What are the latest Tesla news?"         → News Agent    → latest news
+"If I buy at $100 and sell at $150, what’s the ROI?"   → Math Agent    → calculation
+"What does the uploaded report say?"    → RAG Agent     → document search
+"Compare NVDA and AMD"       → Market Agent  → comparison + chart
 ```
 
 ## Project structure
