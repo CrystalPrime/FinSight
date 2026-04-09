@@ -4,28 +4,8 @@ A production-grade financial assistant powered by a **LangGraph multi-agent arch
 
 ## Architecture
 
-```
-User Query
-    │
-    ▼
-Supervisor (LLM)
-decides which agent(s) to call
-    │
-    ├──────────────────────────────────────────────┐
-    │                    │                         │
-    ▼                    ▼                         ▼
-RAG Agent          Market Agent            Math Agent          News Agent
-Financial docs     Yahoo Finance           ROI, compound       DuckDuckGo
-FAISS + PDF        real-time prices        interest, ratios    financial news
-    │                    │                         │                │
-    └────────────────────┴─────────────────────────┴────────────────┘
-                                  │
-                            Supervisor
-                         synthesizes answer
-                                  │
-                                  ▼
-                      Streamlit Chat Interface
-                      + Interactive Stock Chart
+
+![FinSight Architecture](finsight_architecture.svg)
 ```
 
 Each agent is a specialized `create_agent` instance with its own tools and system prompt. The Supervisor node uses an LLM to route queries, then returns control after each agent responds — enabling multi-step reasoning across agents.
