@@ -1,4 +1,12 @@
-# Finance Assistant — Multi-Agent AI System
+![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
+![LangGraph](https://img.shields.io/badge/LangGraph-Multi--Agent-blueviolet?logo=langchain)
+![LangChain](https://img.shields.io/badge/LangChain-Agents-green?logo=langchain)
+![Groq](https://img.shields.io/badge/Groq-LLaMA_3.3_70B-orange?logo=groq)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-red?logo=streamlit)
+![FAISS](https://img.shields.io/badge/FAISS-Vector_Store-lightblue)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Embeddings-yellow?logo=huggingface)
+![License](https://img.shields.io/badge/License-MIT-green)
+# FinSight — Multi-Agent AI System
 
 A production-grade financial assistant powered by a **LangGraph multi-agent architecture**. The system routes user queries to specialized AI agents, fetches real-time market data, and renders interactive stock charts — all in a conversational interface.
 
