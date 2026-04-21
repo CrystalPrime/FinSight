@@ -20,7 +20,7 @@ A production grade financial assistant powered by a **LangGraph multi-agent arch
 ![FinSight Demo](Charts.png)
 
 
-Each agent is a specialized `create_agent` instance with its own tools and system prompt. The Supervisor node uses an LLM to route queries, then returns control after each agent responds — enabling multi-step reasoning across agents.
+Each agent is a specialized `create_agent` instance with its own tools and system prompt. The Supervisor node uses an LLM to route queries, then returns control after each agent responds enabling multi-step reasoning across agents.
 
 
 
