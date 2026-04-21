@@ -8,7 +8,7 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 # FinSight — Multi-Agent AI System
 
-A production grade financial assistant powered by a **LangGraph multi-agent architecture**. The system routes user queries to specialized AI agents, fetches real time market data, and renders interactive stock charts — all in a conversational interface.
+A production grade financial assistant powered by a **LangGraph multi-agent architecture**. The system routes user queries to specialized AI agents, fetches real time market data, and renders interactive stock charts all in a conversational interface.
 
 ## Architecture
 
