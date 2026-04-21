@@ -8,12 +8,12 @@
 ![License](https://img.shields.io/badge/License-MIT-green)
 # FinSight — Multi-Agent AI System
 
-A production-grade financial assistant powered by a **LangGraph multi-agent architecture**. The system routes user queries to specialized AI agents, fetches real-time market data, and renders interactive stock charts — all in a conversational interface.
+A production grade financial assistant powered by a **LangGraph multi-agent architecture**. The system routes user queries to specialized AI agents, fetches real time market data, and renders interactive stock charts — all in a conversational interface.
 
 ## Architecture
 
 
-![FinSight Architecture](finsight_architecture.svg)
+![FinSight Architecture](finsight_architecture_diagram.svg)
 
 ## Preview
 
@@ -25,91 +25,82 @@ Each agent is a specialized `create_agent` instance with its own tools and syste
 
 
 ## Features
-
-- **Multi-agent routing** — Supervisor LLM decides which specialist to invoke based on the query
-- **Real-time market data** — Live stock prices, P/E ratios, market cap via Yahoo Finance
+ 
+ **Multi-agent routing** — Supervisor LLM decides which specialist to invoke based on the query
+- **Parallel execution** — Market and News agents run simultaneously when both are needed, reducing latency
+- **Real time market data** — Live stock prices, P/E ratios, market cap via Yahoo Finance
 - **Interactive charts** — Candlestick + volume charts rendered inline in chat (Plotly)
 - **Financial document RAG** — Upload PDFs and ask questions with page-level citations
 - **Financial calculations** — ROI, compound interest, comparative analysis
 - **Financial news search** — Latest market events via DuckDuckGo
-- **Conversation memory** — Full multi-turn memory via LangGraph checkpointer
-
+- **Conversation memory** — Full multi turn memory via LangGraph checkpointer
 ## Stack
-
-- **LangGraph** — Multi-agent graph orchestration (StateGraph, conditional edges)
+ 
+- **LangGraph** — Multi-agent graph orchestration (StateGraph, Send API, parallel execution)
 - **LangChain** — Agent creation, tool definitions, RAG pipeline
 - **Groq** — LLM inference (llama-3.3-70b-versatile)
 - **FAISS** — Local vector store for document retrieval
-- **HuggingFace Embeddings** — Offline embedding model (all-MiniLM-L6-v2)
+- **HuggingFace Embeddings** — all-MiniLM-L6-v2 (auto-downloaded from Hub)
 - **Yahoo Finance (yfinance)** — Real-time stock data
 - **Plotly** — Interactive financial charts
 - **Streamlit** — Chat interface
-
 ## Agents
-
+ 
 | Agent | Tools | Triggers |
 |---|---|---|
 | **Market Agent** | `get_stock_price`, `compare_stocks` | Ticker symbols, price queries |
 | **News Agent** | `search_financial_news` | Market news, recent events |
 | **Math Agent** | `calculate`, `calculate_roi` | ROI, compound interest, ratios |
 | **RAG Agent** | `search_financial_documents` | Questions about uploaded PDFs |
-
+| **Market + News** | both above | Queries asking for price **and** news together — run in parallel |
+ 
 ## Setup
-
+ 
 **1. Clone and install**
-
+ 
 ```bash
 git clone https://github.com/CrystalPrime/finance-agent
 cd finance-agent
 pip install -r requirements.txt
 ```
-
-**2. Download embedding model**
-
-```bash
-git clone https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
-```
-
-Update the path in `backend/config.py`:
-
-```python
-EMBEDDING_MODEL = "path/to/all-MiniLM-L6-v2"
-```
-
-**3. Set environment variables**
-
+ 
+**2. Set environment variables**
+ 
 ```
 GROQ_API_KEY=your_key_here
 ```
-
+ 
 Get a free Groq API key at [console.groq.com](https://console.groq.com)
-
-**4. Run**
-
+ 
+> The embedding model (`all-MiniLM-L6-v2`) is downloaded automatically from HuggingFace Hub on first run — no manual setup needed.
+ 
+**3. Run**
+ 
 ```bash
 cd backend
 streamlit run app.py
 ```
-
+ 
 ## Example queries
-
+ 
 ```
-""What is the AAPL stock price?"        → Market Agent → live price + chart  "          → Market Agent  → live price + chart
-"What are the latest Tesla news?"         → News Agent    → latest news
-"If I buy at $100 and sell at $150, what’s the ROI?"   → Math Agent    → calculation
-"What does the uploaded report say?"    → RAG Agent     → document search
-"Compare NVDA and AMD"       → Market Agent  → comparison + chart
+"What is the AAPL stock price?"              → Market Agent  → live price + chart
+"What are the latest Tesla news?"            → News Agent    → latest news
+"AAPL price and news"                        → Market + News → parallel execution
+"If I buy at $100 and sell at $150, ROI?"   → Math Agent    → calculation
+"What does the uploaded report say?"         → RAG Agent     → document search
+"Compare NVDA and AMD"                       → Market Agent  → comparison + chart
 ```
-
+ 
 ## Project structure
-
+ 
 ```
 finance-agent/
 ├── backend/
 │   ├── app.py           # Streamlit UI + chart rendering
-│   ├── graph.py         # LangGraph StateGraph — supervisor + routing
+│   ├── graph.py         # LangGraph StateGraph — supervisor, routing, parallel merge
 │   ├── ingest.py        # PDF → chunks → FAISS index
-│   ├── config.py        # model paths and settings
+│   ├── config.py        # model settings
 │   └── agents/
 │       ├── market.py    # Yahoo Finance tools
 │       ├── news.py      # DuckDuckGo news search
@@ -118,9 +109,9 @@ finance-agent/
 ├── requirements.txt
 └── .env
 ```
-
+ 
 ## Requirements
-
+ 
 ```
 streamlit
 langchain
@@ -137,7 +128,7 @@ plotly
 duckduckgo-search
 python-dotenv
 ```
-
+ 
 ---
-
+ 
 *Part of an ongoing series of LangChain and LangGraph projects — see also [research-agent](https://github.com/CrystalPrime/research-agent) and [book-agent](https://github.com/CrystalPrime/book-agent).*
