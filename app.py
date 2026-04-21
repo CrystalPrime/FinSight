@@ -5,10 +5,15 @@ import yfinance as yf
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import re
-
+import uuid
 load_dotenv()
 
-from graph import finance_graph, THREAD_CONFIG
+from graph import finance_graph
+
+if "thread_id" not in st.session_state:
+    st.session_state.thread_id = str(uuid.uuid4())
+
+THREAD_CONFIG = {"configurable": {"thread_id": st.session_state.thread_id}}
 
 st.set_page_config(
     page_title="FinSight",
